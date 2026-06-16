@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prophet Stories ✨ Tales of Wisdom & Wonder</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --midnight: #1A1240;
+    --deep-blue: #251A5E;
+    --gold: #F5C842;
+    --gold-light: #FFE57A;
+    --cream: #FFF8E7;
+    --coral: #FF6B5B;
+    --green: #4CAF7D;
+    --purple: #9B59D0;
+    --sky: #4ABADB;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--midnight);
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* STARS BACKGROUND */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: var(--op, 0.8); transform: scale(1.2); }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+  }
+
+  .scroll-hero {
+    display: inline-block;
+    background: linear-gradient(135deg, #2D1F6E, #3D2A8A);
+    border: 3px solid var(--gold);
+    border-radius: 24px;
+    padding: 40px 48px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 60px rgba(245, 200, 66, 0.25), 0 8px 32px rgba(0,0,0,0.4);
+    animation: unfurl 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  @keyframes unfurl {
+    from { transform: scaleY(0.1) scaleX(0.6); opacity: 0; }
+    to   { transform: scaleY(1) scaleX(1); opacity: 1; }
+  }
+
+  .scroll-ends {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .scroll-end {
+    width: 40px; height: 14px;
+    background: var(--gold);
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(245,200,66,0.5);
+  }
+
+  .site-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    color: var(--gold);
+    line-height: 1.1;
+    text-shadow: 0 2px 16px rgba(245,200,66,0.4);
+    letter-spacing: 0.5px;
+  }
+  .site-subtitle {
+    font-size: 1.1rem;
+    color: #C8BBFF;
+    margin-top: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .sparkle-row {
+    margin-top: 16px;
+    font-size: 1.6rem;
+    letter-spacing: 6px;
+  }
+
+  /* INTRO */
+  .intro {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    font-size: 1.05rem;
+    color: #B8AAEE;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 20px 20px 0;
+  }
+  .label-pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(245,200,66,0.3);
+    border-radius: 999px;
+    padding: 6px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* GRID */
+  .stories-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 28px auto 0;
+    padding: 0 24px 80px;
+  }
+
+  /* STORY CARD */
+  .story-card {
+    background: var(--deep-blue);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+  }
+  .story-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px var(--card-glow, rgba(245,200,66,0.2));
+    border-color: var(--card-accent, var(--gold));
+  }
+
+  .card-banner {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+  }
+  .card-emoji {
+    font-size: 3.2rem;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    animation: float 4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .card-body {
+    padding: 22px 24px 26px;
+  }
+  .card-prophet-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.55rem;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .card-prophet-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--card-accent, var(--gold));
+    margin-bottom: 12px;
+  }
+  .card-story {
+    font-size: 0.97rem;
+    color: #C0B8E8;
+    line-height: 1.75;
+    font-weight: 600;
+  }
+
+  .card-lesson {
+    margin-top: 16px;
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--card-accent, var(--gold));
+    border-radius: 0 12px 12px 0;
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    font-weight: 700;
+  }
+  .card-lesson-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+
+  .read-more-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 22px;
+    background: var(--card-accent, var(--gold));
+    color: var(--midnight);
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, filter 0.15s;
+    text-decoration: none;
+  }
+  .read-more-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 6, 40, 0.88);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(6px);
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal-box {
+    background: #1E1550;
+    border-radius: 28px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 2px solid var(--modal-accent, var(--gold));
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 40px var(--modal-glow, rgba(245,200,66,0.2));
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .modal-overlay.open .modal-box {
+    transform: scale(1);
+  }
+  .modal-banner {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .modal-emoji {
+    font-size: 4rem;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: rgba(0,0,0,0.35);
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.15); }
+  .modal-content {
+    padding: 24px 28px 32px;
+  }
+  .modal-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--cream);
+  }
+  .modal-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: var(--modal-accent, var(--gold));
+    margin-bottom: 18px;
+  }
+  .modal-section-head {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.35);
+    margin: 20px 0 8px;
+  }
+  .modal-text {
+    font-size: 1rem;
+    color: #C8C0F0;
+    line-height: 1.85;
+    font-weight: 600;
+  }
+  .modal-miracle {
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #D8D0FF;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .modal-miracle-icon { flex-shrink: 0; font-size: 1.2rem; }
+  .modal-lesson-box {
+    background: linear-gradient(135deg, rgba(245,200,66,0.12), rgba(245,200,66,0.05));
+    border: 1.5px solid rgba(245,200,66,0.35);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: var(--gold-light);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 24px 20px 40px;
+    color: rgba(255,255,255,0.25);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 500px) {
+    .scroll-hero { padding: 28px 24px; }
+    .site-title { font-size: 1.9rem; }
+    .stories-grid { padding: 0 14px 60px; gap: 16px; }
+    .modal-content { padding: 18px 20px 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- STAR FIELD -->
+<div class="stars" id="stars"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="scroll-hero">
+    <div class="scroll-ends">
+      <div class="scroll-end"></div>
+      <div class="scroll-end"></div>
+    </div>
+    <div class="site-title">Prophet Stories ✨</div>
+    <div class="site-subtitle">Tales of Wisdom, Miracles & Wonder</div>
+    <div class="sparkle-row">⭐🌙⭐🌙⭐</div>
+  </div>
+</header>
+
+<p class="intro">
+  Long ago, Allah sent special messengers to guide all people. 
+  These are their amazing stories — full of faith, courage, and miracles! 🌟
+</p>
+
+<div class="section-label">
+  <span class="label-pill">✦ Choose a Prophet ✦</span>
+</div>
+
+<!-- CARDS GRID -->
+<div class="stories-grid" id="storiesGrid"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-banner" id="modalBanner">
+      <div class="modal-emoji" id="modalEmoji"></div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-title" id="modalProphetTitle"></div>
+      <div class="modal-section-head">📖 THE STORY</div>
+      <div class="modal-text" id="modalStory"></div>
+      <div class="modal-section-head">✨ MIRACLES & WONDERS</div>
+      <div id="modalMiracles"></div>
+      <div class="modal-lesson-box" id="modalLesson"></div>
+    </div>
+  </div>
+</div>
+
+<footer>Made with ❤️ for young learners everywhere</footer>
+
+<script>
+const prophets = [
+  {
+    name: "Adam (عليه السلام)",
+    title: "The First Human",
+    emoji: "🌿",
+    bannerGradient: "linear-gradient(135deg, #2D6A3A, #1A4A28)",
+    accent: "#4CAF7D",
+    glow: "rgba(76,175,125,0.25)",
+    story: "Allah created Adam from clay with His own hands and breathed life into him. He became the very first human being and the first prophet! Allah taught Adam the names of all things, showing how special humans are. Adam and his wife Hawa (Eve) lived in a beautiful garden in Paradise.",
+    miracles: [
+      { icon: "🤲", text: "Created directly by Allah from clay — the very first human!" },
+      { icon: "📚", text: "Allah taught Adam the names of everything in creation." },
+      { icon: "👑", text: "All the angels bowed to Adam out of respect for Allah's command." }
+    ],
+    lesson: "💡 Lesson: Allah created us with love and made humans very special. Always be grateful! 🌱"
+  },
+  {
+    name: "Nuh (عليه السلام)",
+    title: "The Patient Messenger",
+    emoji: "🚢",
+    bannerGradient: "linear-gradient(135deg, #1A4D7A, #0D3057)",
+    accent: "#4ABADB",
+    glow: "rgba(74,186,219,0.25)",
+    story: "Prophet Nuh called his people to believe in Allah for 950 years! They refused and mocked him. So Allah told Nuh to build a huge ark (boat). People laughed at him building a ship far from the sea — but Nuh never gave up. When the great flood came, the ark saved Nuh, his family, and pairs of every animal.",
+    miracles: [
+      { icon: "⛵", text: "Built a massive ark by Allah's command that saved all believers." },
+      { icon: "🌊", text: "The great flood covered the earth, and only the ark's passengers were safe." },
+      { icon: "🕊️", text: "He preached for 950 years — the most patient prophet!" }
+    ],
+    lesson: "💡 Lesson: Never give up doing what is right, even if people laugh at you. Patience always wins! 🌈"
+  },
+  {
+    name: "Ibrahim (عليه السلام)",
+    title: "The Friend of Allah",
+    emoji: "🔥",
+    bannerGradient: "linear-gradient(135deg, #7A3A1A, #4A2010)",
+    accent: "#FF8C42",
+    glow: "rgba(255,140,66,0.25)",
+    story: "As a young boy, Ibrahim knew in his heart that idols were not real gods. He smashed the idols his people worshipped! The angry king threw Ibrahim into a giant fire — but by Allah's miracle, the fire did not burn him at all. Ibrahim also built the Kaaba in Makkah with his son Ismail, which Muslims face when they pray today.",
+    miracles: [
+      { icon: "🔥", text: "Thrown into a huge fire but Allah made it cool and safe for him." },
+      { icon: "🕌", text: "Built the holy Kaaba in Makkah — the center of Islam." },
+      { icon: "🦅", text: "Allah showed him how He can bring the dead back to life using birds." }
+    ],
+    lesson: "💡 Lesson: Be brave and stand up for what is true, even when it is hard. Truth always shines! ⭐"
+  },
+  {
+    name: "Musa (عليه السلام)",
+    title: "The One Who Spoke with Allah",
+    emoji: "🪄",
+    bannerGradient: "linear-gradient(135deg, #2A5E3A, #163322)",
+    accent: "#5DD67A",
+    glow: "rgba(93,214,122,0.25)",
+    story: "Baby Musa was placed in a basket on the river to protect him — and ended up in the palace of the Pharaoh! When he grew up, Allah spoke to him directly from a burning bush and sent him to free the children of Israel from slavery. Pharaoh refused, so Allah sent 10 amazing miracles. Then the sea split open so Musa's people could escape!",
+    miracles: [
+      { icon: "🌊", text: "The Red Sea split in half so his people could walk through safely." },
+      { icon: "🐍", text: "His staff turned into a giant snake and swallowed the magicians' tricks." },
+      { icon: "💬", text: "Allah spoke directly to Musa — a unique honor!" }
+    ],
+    lesson: "💡 Lesson: Allah always helps those who trust in Him. No obstacle is too big! 🌊"
+  },
+  {
+    name: "Dawud (عليه السلام)",
+    title: "The King & The Poet",
+    emoji: "⭐",
+    bannerGradient: "linear-gradient(135deg, #5A3A8A, #3A2060)",
+    accent: "#9B59D0",
+    glow: "rgba(155,89,208,0.25)",
+    story: "Dawud was a young shepherd boy who defeated the giant warrior Goliath with just a sling and a stone — because he trusted in Allah! He became a great king and prophet. Allah blessed Dawud with the most beautiful voice; when he recited the Zabur (Psalms), birds would stop flying and mountains would echo his praise of Allah.",
+    miracles: [
+      { icon: "🪨", text: "Defeated the mighty giant Goliath with a single stone from his sling." },
+      { icon: "🎵", text: "His voice was so beautiful that birds and mountains joined him in praising Allah." },
+      { icon: "⚔️", text: "Allah taught him how to make iron armor to protect people." }
+    ],
+    lesson: "💡 Lesson: With faith and courage, even the smallest person can do mighty things! 💪"
+  },
+  {
+    name: "Sulayman (عليه السلام)",
+    title: "The King of All Creation",
+    emoji: "🦁",
+    bannerGradient: "linear-gradient(135deg, #8A6A1A, #5A4200)",
+    accent: "#F5C842",
+    glow: "rgba(245,200,66,0.25)",
+    story: "Prophet Sulayman was given a kingdom unlike any other! He could speak the languages of animals and birds. Ants would warn each other when his army marched so they wouldn't be stepped on — and he understood them! A magical wind carried him wherever he wished, and the jinn worked under his command to build magnificent structures.",
+    miracles: [
+      { icon: "🐜", text: "Could understand the language of ants, birds, and all animals." },
+      { icon: "💨", text: "The wind carried him and his whole army wherever he commanded." },
+      { icon: "🏰", text: "Jinn built magnificent temples and palaces under his command." }
+    ],
+    lesson: "💡 Lesson: Use every gift Allah gives you with gratitude and to help others! 🌟"
+  },
+  {
+    name: "Isa (عليه السلام)",
+    title: "The Miracle-Worker",
+    emoji: "🕊️",
+    bannerGradient: "linear-gradient(135deg, #1A5A7A, #0D3A50)",
+    accent: "#4ABADB",
+    glow: "rgba(74,186,219,0.25)",
+    story: "Isa (Jesus, peace be upon him) was born miraculously to his mother Maryam without a father — a unique miracle! As a baby, he spoke from his cradle to defend his mother. He healed the sick, gave sight to the blind, and even brought the dead back to life — all by Allah's permission. He was given the holy book called the Injeel.",
+    miracles: [
+      { icon: "🍼", text: "Spoke as a newborn baby in the cradle to defend his mother." },
+      { icon: "👁️", text: "Healed people who were blind, sick, and even raised the dead." },
+      { icon: "🐦", text: "Breathed life into a clay bird that became a real, flying bird!" }
+    ],
+    lesson: "💡 Lesson: Every miracle reminds us that Allah has power over all things! 🕊️"
+  },
+  {
+    name: "Muhammad ﷺ",
+    title: "The Final & Beloved Prophet",
+    emoji: "🌙",
+    bannerGradient: "linear-gradient(135deg, #1A2060, #0D1240)",
+    accent: "#F5C842",
+    glow: "rgba(245,200,66,0.35)",
+    story: "Prophet Muhammad ﷺ is the last and final messenger of Allah, sent as a mercy to all of humanity. He was born in Makkah and was known for his honesty — people called him 'Al-Amin' (the Trustworthy) before he even became a prophet. He received the Quran from Allah through the Angel Jibreel over 23 years. His life is a perfect example for all of us.",
+    miracles: [
+      { icon: "📖", text: "Received the Holy Quran — the final and preserved word of Allah." },
+      { icon: "🌙", text: "The moon split into two halves when people asked for a sign." },
+      { icon: "🚀", text: "Made the miraculous night journey to Jerusalem and up through the heavens (Isra & Miraj)." }
+    ],
+    lesson: "💡 Lesson: Be honest, kind, and gentle with everyone — just like Prophet Muhammad ﷺ! 🌹"
+  }
+];
+
+// Render cards
+const grid = document.getElementById('storiesGrid');
+prophets.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'story-card';
+  card.style.setProperty('--card-accent', p.accent);
+  card.style.setProperty('--card-glow', p.glow);
+  card.innerHTML = `
+    <div class="card-banner" style="background: ${p.bannerGradient}">
+      <div class="card-emoji" style="--delay: ${i * 0.3}s">${p.emoji}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-prophet-name">${p.name}</div>
+      <div class="card-prophet-title" style="color: ${p.accent}">${p.title}</div>
+      <div class="card-story">${p.story.split(' ').slice(0, 30).join(' ')}…</div>
+      <div class="card-lesson">
+        <div class="card-lesson-label">Big Lesson</div>
+        ${p.lesson}
+      </div>
+      <button class="read-more-btn" style="background: ${p.accent}" onclick="openModal(${i})">
+        Read Full Story 📖
+      </button>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// Modal
+function openModal(i) {
+  const p = prophets[i];
+  const overlay = document.getElementById('modalOverlay');
+  document.getElementById('modalEmoji').textContent = p.emoji;
+  document.getElementById('modalBanner').style.background = p.bannerGradient;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalProphetTitle').style.color = p.accent;
+  document.getElementById('modalProphetTitle').textContent = p.title;
+  document.getElementById('modalStory').textContent = p.story;
+  document.getElementById('modalLesson').textContent = p.lesson;
+  document.getElementById('modalBox').style.setProperty('--modal-accent', p.accent);
+  document.getElementById('modalBox').style.setProperty('--modal-glow', p.glow);
+  const miraclesEl = document.getElementById('modalMiracles');
+  miraclesEl.innerHTML = p.miracles.map(m => `
+    <div class="modal-miracle">
+      <span class="modal-miracle-icon">${m.icon}</span>
+      <span>${m.text}</span>
+    </div>
+  `).join('');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Generate stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 3 + 1;
+  s.style.cssText = `
+    left: ${Math.random()*100}%;
+    top: ${Math.random()*100}%;
+    width: ${size}px; height: ${size}px;
+    --dur: ${2 + Math.random()*4}s;
+    --op: ${0.4 + Math.random()*0.6};
+    animation-delay: ${Math.random()*5}s;
+  `;
+  starsEl.appendChild(s);
+}
+</script>
+</body>
+</html>
